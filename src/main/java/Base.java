@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.util.Scanner;
 
 /**
@@ -25,7 +24,7 @@ public class base {
             System.out.print("Enter the operation: ");
             char action = scanner.next().charAt(0);
 
-//            scanner.close(); // закрытие метода ввода
+            scanner.close(); // закрытие метода ввода
 
             switch (action){
                 case '+':
@@ -59,14 +58,14 @@ public class base {
                 for (int words = 0; words < lengthArray; words++){       // наполняем массив
                     array[words] = scanner.next();
                 }
-                //не верно, поправить
+
                 int maxLengthString = 0;
                 for(int str = 0; str < array.length; str++) {
-                    if(array[str].length() > maxLengthString){
+                    if (array[str].length() > maxLengthString) {
                         maxLengthString = str;
                     }
-                    System.out.println("String array: " + array[maxLengthString]);
-            }
+                }
+                System.out.println("String array: " + array[maxLengthString]);
                 break;
             default:
                 System.out.print("Please enter 1 or 2");
