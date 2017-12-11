@@ -28,7 +28,7 @@ public class base {
                 christmasGift();
                 break;
             default:
-                System.out.print("Please enter 1 or 2");
+                System.out.print("Please enter: 1, 2, 3 or 4 ");
         }
     }
             //метод калькулятор
@@ -94,7 +94,7 @@ public class base {
     }
 
 //             задание 2: Поиск максимального элемента в массиве
-    public static int[] swapMinMax(){
+    private static int[] swapMinMax(){
 
         // рандомный массив
         System.out.println("Random array: ");
@@ -135,7 +135,7 @@ public class base {
     }
 
     // задание 5, набор подарка
-    public static void christmasGift(){
+    private static void christmasGift(){
 
         String[] goods = {
                 "1. Драже жевательное Bubbly Bottles со вкусом шампанского",
@@ -164,8 +164,8 @@ public class base {
             while (g < id.length) {
                 if (s == id[g]){
                     gifts.add(s);
-                    totalCost += cost[g];  // добавил
-                    totalWeight += weight[g];   // добавил
+                    totalCost += cost[g];
+                    totalWeight += weight[g];
                 }
                 g++;
             }
