@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -9,7 +11,8 @@ public class base {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter program:" + "\n" + "1 - Calculator" + "\n" + "2 - String array");
+        System.out.println("Enter program:" + "\n" + "1 - Calculator" + "\n" + "2 - String array" +
+                "\n" + "3 - Min and max number in array" + "\n" + "4 - Christmas gift");
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
@@ -18,12 +21,18 @@ public class base {
             case 2:
                 getMaxString();
                 break;
+            case 3:
+                swapMinMax();
+                break;
+            case 4:
+                christmasGift();
+                break;
             default:
                 System.out.print("Please enter 1 or 2");
         }
     }
             //метод калькулятор
-    private static double calc(){
+    private static void calc(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the first number: ");   // Вывод на консоль текста Enter the first number:
         double firstNumber = scanner.nextDouble();
@@ -56,8 +65,6 @@ public class base {
             default:
                 System.out.print("Please enter + or - or * or / ");
         }
-
-        return 0;
     }
 
 
@@ -69,17 +76,116 @@ public class base {
 
         System.out.println("Enter words: ");
         String array[] = new String[lengthArray];   // создаем массив с введенной длинной
-        for (int words = 0; words < lengthArray; words++){       // наполняем массив
-        array[words] = scanner.next();
-        }
-        scanner.close(); // закрытие метода ввода
 
-        int maxLengthString = 0;
-        for(int str = 0; str < array.length; str++) {
-            if (array[str].length() > maxLengthString) {
-                maxLengthString = str;
+        String maxLengthString = ("");
+        for(int str = 0; str < lengthArray; str++) {
+            array[str] = scanner.next();
+            int oneWord = array[str].length();
+            int nextWord = maxLengthString.length();
+            if (oneWord > nextWord) {
+                maxLengthString = array[str];
             }
         }
-        System.out.println("String array: " + array[maxLengthString]);
+
+        scanner.close(); // закрытие метода ввода
+
+        System.out.println("String array: " + maxLengthString);
+
+    }
+
+//             задание 2: Поиск максимального элемента в массиве
+    public static int[] swapMinMax(){
+
+        // рандомный массив
+        System.out.println("Random array: ");
+        int[] array_minmax = new int[20];
+        for (int i = 0; i < 20; i++){
+            array_minmax[i] = (int)(Math.random()*21 - 10);
+        }
+        String array_minmaxStr = Arrays.toString(array_minmax);
+        System.out.println (array_minmaxStr);
+
+        // поиск индекса минимального и максимального числа в массиве
+        int array_min = 0;
+        int array_max = 0;
+        for (int j = 1; j < 20; j++){
+            if (array_minmax[j] > array_minmax[array_max]){
+                array_max = j;
+            } else if (array_minmax[j] < array_minmax[array_min]){
+                array_min = j;
+            }
+        }
+
+        // замена min max
+        int min = array_minmax[array_min];
+        int max = array_minmax[array_max];
+        for (int swap = 0; swap < array_minmax.length; swap++){
+            if (array_minmax[swap] == max){
+                array_minmax[swap] = min;
+            }else if (array_minmax[swap] == min){
+                array_minmax[swap] = max;
+            }
+
+        }
+        System.out.println("Swap min max array: ");
+        String array_minmaxStr2 = Arrays.toString(array_minmax);
+        System.out.println (array_minmaxStr2);
+        return array_minmax;
+
+    }
+
+    // задание 5, набор подарка
+    public static void christmasGift(){
+
+        String[] goods = {
+                "1. Драже жевательное Bubbly Bottles со вкусом шампанского",
+                "2. Драже жевательное Сливочный Поп-Корн",
+                "3. Конфеты ассорти со вкусами кислых фруктов Go Sour!",
+                "4. Конфеты Гарри Поттера Берти Боттс в коробке",
+                "5. Диспенсер с конфетами Bean Boozled: 16 неожиданных вкусов"};
+        int[] id ={1, 2, 3, 4, 5};
+        int[] weight = {42, 49, 125, 35, 99};
+        int[] cost = {225, 199, 635, 275, 915};
+
+        System.out.println("Select product: ");
+        for (int prGoods = 0; prGoods < goods.length; prGoods++){
+            System.out.println(goods[prGoods]);
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        int totalCost = 0;
+        int totalWeight = 0;
+
+        System.out.println("Enter the item number. To complete your purchase, enter 0");
+        ArrayList<Integer> gifts = new ArrayList<Integer>();
+        for (; ;){
+            int s = scanner.nextInt();
+            int g = 0;
+            while (g < id.length) {
+                if (s == id[g]){
+                    gifts.add(s);
+                    totalCost += cost[g];  // добавил
+                    totalWeight += weight[g];   // добавил
+                }
+                g++;
+            }
+            if (s == 0){
+                break;
+            }
+        }
+        scanner.close();
+
+        System.out.println("Your gift:");
+        for (int prGift = 0; prGift < gifts.size();prGift++){
+            for (int f =0; f < id.length; f++){
+                if (gifts.get(prGift) == id[f]){
+                    System.out.println(goods[f]);
+                }
+            }
+        }
+
+        System.out.println("Total weight: " + totalWeight + " gr.");
+
+        System.out.println("Total cost: " +totalCost + " rub.");
     }
 }
